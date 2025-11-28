@@ -29,7 +29,7 @@ def lemmatize(text):
 
 # df = pd.read_csv("data/r_disability_praw.csv")
 print("Running preprocessing...")
-df = pd.read_csv("for_change_time/data_top_july.csv")
+df = pd.read_csv("data/r_disability_praw.csv")
 # print(df.head())
 print(df['text'].str.len().describe())
 

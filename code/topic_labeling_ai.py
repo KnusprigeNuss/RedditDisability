@@ -32,6 +32,11 @@ mode = "manual"
 if arg_mode == "automatic":
     mode = "automatic"
 
+if mode == "manual":
+    print("Running topic labeling using mode \"manual\"")
+else:
+    print("Running topic labeling using mode \"automatic\"")
+
 # model_sbert = SentenceTransformer('all-MiniLM-L6-v2')
 # model_name = "google/flan-t5-large"
 # tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -41,26 +46,20 @@ models = {
     "flan-t5": pipeline("text2text-generation", model="google/flan-t5-large"),
     # "flan-ul2": pipeline("text2text-generation", model="google/flan-ul2"),
     "alpaca": pipeline("text2text-generation", model="declare-lab/flan-alpaca-large"),
-    # "mistral": pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")  # if you want
+    # "mistral": pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")  
 }
 
 df = pd.read_csv("data/r_disability_with_topics.csv")
 model = BERTopic.load("r_disability_bertopic_model")
 
-# BART (summarization-tuned)
 # bart = pipeline("summarization", model="facebook/bart-large-cnn")
-
-# Mistral (instruction-following)
 # mistral = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")
 
 label_list = {}
 for topic in model.get_topics():
-    # Get top words for the topic
-    top_words = [word for word, _ in model.get_topic(topic)[:20]]  # top 20 words
-    # Get example texts for the topic
-    rep_docs = model.get_representative_docs(topic)[:2]  # indices of 1 example doc
+    top_words = [word for word, _ in model.get_topic(topic)[:20]]  
+    rep_docs = model.get_representative_docs(topic)[:2]  
     original_texts = df.loc[df['cleaned_text'].isin(rep_docs), 'text'].tolist()
-    # example_texts = [model.get_document_info(i)["Document"] for i in example_indices]
     prompt = make_prompt(top_words)
     labels = {}
     for name, gen in models.items():

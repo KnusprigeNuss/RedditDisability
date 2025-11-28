@@ -40,6 +40,6 @@ df = pd.DataFrame(posts)
 df['text'] = df['title'] + ' ' + df['selftext']
 # df['text'] = ' ' + df['selftext']
 
-# df.to_csv("data/r_disability_praw.csv", index=False)
-df.to_csv("test/data_top_october.csv", index=False)
+df.to_csv("data/r_disability_praw.csv", index=False)
+# df.to_csv("test/data_top_october.csv", index=False)
 print(f"Saved {len(df)} posts.")

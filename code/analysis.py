@@ -9,6 +9,7 @@ import matplotlib.patches as mpatches
 df = pd.read_csv("data/r_disability_with_topics_and_labels.csv")
 model = BERTopic.load("r_disability_bertopic_model")
 os.makedirs("output/figures", exist_ok=True)
+print("Running topic analysis and visualization...")
 
 ######## Engagement Stats ########
 engagement_stats = df.groupby('topic').agg({

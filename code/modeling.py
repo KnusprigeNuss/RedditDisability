@@ -3,6 +3,7 @@ from bertopic import BERTopic
 from umap import UMAP
 from hdbscan import HDBSCAN
 
+print("Running topic modeling...")
 df = pd.read_csv("data/r_disability_preproc.csv")
 df["cleaned_text"] = df["cleaned_text"].fillna("").astype(str)
 docs = df["cleaned_text"].tolist()
@@ -28,23 +29,13 @@ topic_freq = pd.Series(topics_array).value_counts().sort_index()
 print("Cluster sizes after reduction:")
 print(topic_freq)
 
-print("Number of outliers (-1):", (topics_array == -1).sum())
-
-# printing some examples
-print("updated")
 print(model.get_topic_info())      
-for topic_id in model.get_topic_freq()['Topic']:
-    words = [word for word, _ in model.get_topic(topic_id)]
-    for word in words:
-        print(f"Topic {topic_id} word: {word}")
-print(model.get_topic(1))          
 fig_bar = model.visualize_barchart(top_n_topics=20)
 fig_bar.write_html("output/figures/topic_barchart.html")
 
 model.save("r_disability_bertopic_model")
 
-# Get topic frequencies (cluster sizes)
 topic_freq = model.get_topic_freq()
 
 print("Cluster sizes:")
-print(topic_freq.head(20))   # first 20 topics with their sizes
+print(topic_freq.head(20))  

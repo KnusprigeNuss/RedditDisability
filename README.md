@@ -15,6 +15,11 @@ To run the complete pipeline in-terminal version run:
 ```
 ./run_pipeline.sh
 ```
+Arguments can be used for this to decide between the search filters **top** (default), **hot** or **new** for the data collection and **manual** (default) or **automatic** for the topic labeling.
+Example usage:
+```
+./run_pipeline.sh new manual
+```
 
 If you want to run singular steps of the pipeline you can use the run.sh file. To use it, you need to give the step you want to run as a flag. The flags are:
 

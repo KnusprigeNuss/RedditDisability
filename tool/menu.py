@@ -113,6 +113,8 @@ def run_preprocessing(clean_text, remove_spacy_stopwords, remove_sklearn_stopwor
         if clean_text:
             yield from log_and_yield("Cleaning text")
             df['cleaned_text'] = df['text'].apply(func_clean_text)
+        else:
+            df['cleaned_text'] = df['text']
 
         if lemmatize:
             yield from log_and_yield("Lemmatizing text")
@@ -507,7 +509,7 @@ with gr.Blocks() as demo:
         with gr.Row():
             hdb_min_cluster_size = gr.Slider(5, 50, value=23, step=1, label="min_cluster_size")
             hdb_min_samples = gr.Slider(1, 50, value=10, step=1, label="min_samples")
-            hdb_metric = gr.Dropdown(["euclidean", "manhattan", "cosine"], value="euclidean", label="Metric")
+            hdb_metric = gr.Dropdown(["euclidean", "manhattan"], value="euclidean", label="Metric")
         gr.Markdown("### UMAP Parameters")
         with gr.Row():
             umap_n_neighbors = gr.Slider(5, 50, value=17, step=1, label="n_neighbors")
