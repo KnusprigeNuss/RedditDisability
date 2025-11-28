@@ -1,6 +1,10 @@
 *.txt
 /r_disability_bert*
 data/*
+!data/.gitkeep
 test/*
+!test/.gitkeep
 tool/data/*
+!tool/data/.gitkeep
 tool/figures/*
+!tool/figures/.gitkeep
