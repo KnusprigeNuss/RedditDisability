@@ -1,3 +1,6 @@
 *.txt
 r_disability_bert*
 data/*
+test/*
+tool/data/*
+tool/figures/*
